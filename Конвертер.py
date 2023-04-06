@@ -10,23 +10,36 @@ btnkonvert = QPushButton("Конвертувати")
 btnremove = QPushButton("Стерти")
 
 label = QLabel("КОНВЕРТЕР ВАЛЮТ")
+label2 = QLabel("Введи валюту")
+label3 = QLabel("Результат")
 
-takevalut = QLineEdit()
-outvalut = QLineEdit()
+choose_currency = QLineEdit()
+writecurrency= QLineEdit("")
+outcurrency = QLineEdit()
 
 
 mainline = QVBoxLayout()
-Hline = QHBoxLayout
+Hline = QHBoxLayout()
 mainline.addWidget(label)
-mainline.addWidget(takevalut)
+mainline.addWidget(label2)
 
-mainline.addWidget(outvalut)
-mainline.addWidget(btnkonvert)
-mainline.addWidget(btnremove)
+app.setStyleSheet("""
+        QWidget{
+            #background-image : url("Конвертер Бінанс/Binance_Logo.jpeg")
+        }
+    """)
+
+Hline.addWidget(writecurrency)
+Hline.addWidget(choose_currency)
 
 
 window.setLayout(mainline)
+mainline.addLayout(Hline)
 
+mainline.addWidget(label3)
+mainline.addWidget(outcurrency)
+mainline.addWidget(btnkonvert)
+mainline.addWidget(btnremove)
 
 window.show()
 app.exec_()

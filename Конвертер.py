@@ -3,17 +3,7 @@ from PyQt5.QtWidgets import *
 import requests
 import pandas as pd
 
-url = "https://fapi.binance.com/fapi/v1/premiumIndex"
-param = {'symbol' : 'ETHUSDT'}
 
-r = requests.get(url, params=param)
-
-if r.status_code == 200:
-    print(r.json())
-    data = r.json()
-    print(data)
-else:
-    print("Помилка")
 
 app = QApplication([])
 window = QWidget()
@@ -30,7 +20,7 @@ label3 = QLabel("Результат")
 choose_currency = QLineEdit()
 writecurrency= QLineEdit()
 outcurrency = QLineEdit()
-
+outcurrency.setReadOnly(True)
 
 mainline = QVBoxLayout()
 Hline = QHBoxLayout()
@@ -53,7 +43,23 @@ mainline.addLayout(Hline)
 mainline.addWidget(label3)
 mainline.addWidget(outcurrency)
 mainline.addWidget(btnkonvert)
-mainline.addWidget(btnremove)
+#mainline.addWidget(btnremove)
 
+def course():
+    val1 = choose_currency.text()
+    val2 = writecurrency.text()
+    url = "https://fapi.binance.com/fapi/v1/premiumIndex"
+    param = {'symbol' : val1 + val2}
+
+    r = requests.get(url, params=param)
+
+    if r.status_code == 200:
+        print(r.json())
+        data = r.json()
+        print(data)
+    else:
+        outcurrency.setText("Помилка")
+    
+btnkonvert.clicked.connect(course)
 window.show()
 app.exec_()
